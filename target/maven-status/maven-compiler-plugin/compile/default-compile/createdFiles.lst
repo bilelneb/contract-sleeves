@@ -1,0 +1,5 @@
+de\enmacc\task\model\Contract.class
+de\enmacc\task\EnmaccApplication.class
+de\enmacc\task\repository\ContractRepository.class
+de\enmacc\task\controller\ContractController.class
+de\enmacc\task\de\enmacc\task\service\ContractService.class
