@@ -239,7 +239,7 @@
       <workItem from="1549360650162" duration="7082000" />
       <workItem from="1551362859089" duration="47000" />
       <workItem from="1551362923916" duration="218000" />
-      <workItem from="1598266227219" duration="9630000" />
+      <workItem from="1598266227219" duration="10247000" />
     </task>
     <servers />
   </component>
@@ -273,21 +273,5 @@
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
     </expressions>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
