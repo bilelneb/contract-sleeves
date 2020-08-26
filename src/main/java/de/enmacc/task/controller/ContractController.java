@@ -14,10 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class ContractController {
@@ -83,5 +80,8 @@ public class ContractController {
     List<Contract> getContractBySecondCompanyLeg(@RequestParam("companyName2") String companyName2) {
         return contractService.getContractBySecondCompanyLeg(companyName2);
     }
-
+    @GetMapping(path = "/sleeves2")
+    public List<Stack> getAllPossibleSleeves2(@RequestParam("companyName1") String companyName1, @RequestParam("companyName2") String companyName2 ) throws ContractException {
+        return   contractService.calculateSleeves2(companyName1, companyName2);
+    }
 }

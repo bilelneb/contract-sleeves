@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 @Service
 public class ContractService implements IContractService {
@@ -22,7 +23,8 @@ public class ContractService implements IContractService {
     @Autowired
     CompanyRepository companyRepository;
     private static String targetCompanyName;
-
+    Stack connectionPath = new Stack();
+    List<Stack> connectionPaths = new ArrayList<>();
     public List<Contract> getContractByOneCompanyName(String companyName) {
         return contractRepository.findByFirstCompanyLeg_CompanyNameOrSecondCompanyLeg_CompanyName(companyName, companyName);
     }
@@ -86,6 +88,7 @@ public class ContractService implements IContractService {
                 sleeve.addAll(searchSleeves(contract, contract.getSecondCompanyLeg().getCompanyName()));
                 if (!sleeve.isEmpty()) {
                     sleeve.add(contract);
+                    return sleeve;
                 }
 
             }
@@ -94,8 +97,27 @@ public class ContractService implements IContractService {
         return sleeve;
     }
     @Override
-    public List<List<Contract>> calculateSleeves2(String companyName1, String companyName2) throws ContractException {
-        List<Contract> l = new ArrayList<>();
-        return null;
-    }
+    public List<Stack> calculateSleeves2(String node, String targetNode) throws ContractException {
+        List<Contract> contractsOfFirstLegCompany = new ArrayList<Contract>();
+        List<Contract> contractsOfSecondLegCompany = new ArrayList<Contract>();
+// Push to connectionsPath the object that would be passed as the parameter 'node' into the method below
+        contractsOfFirstLegCompany = getContractByFirstCompanyLeg(node);
+        contractsOfSecondLegCompany = getContractBySecondCompanyLeg(targetNode);
+            for (Contract nextNode : contractsOfFirstLegCompany) {
+                if (nextNode.getSecondCompanyLeg().getCompanyName().equals(targetNode)) {
+                    Stack temp = new Stack();
+                    for (Object node1 : connectionPath)
+                        temp.add(node1);
+                    temp.add(nextNode);
+                    connectionPaths.add(temp);
+                } else if (!connectionPath.contains(nextNode)) {
+                    connectionPath.push(nextNode);
+                    calculateSleeves2(nextNode.getSecondCompanyLeg().getCompanyName(), targetNode);
+                    connectionPath.pop();
+                }
+            }
+
+            return  connectionPaths;
+        }
+
 }
