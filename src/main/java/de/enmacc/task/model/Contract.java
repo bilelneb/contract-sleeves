@@ -1,5 +1,8 @@
 package de.enmacc.task.model;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,35 +12,45 @@ import java.util.UUID;
 public class Contract {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
+    @ManyToOne
+    @JoinColumn(name = "company_name1",referencedColumnName = "companyName")
+    private Company firstCompanyLeg;
+    @ManyToOne
+    @JoinColumn(name = "company_name2",referencedColumnName = "companyName")
+    private Company secondCompanyLeg;
 
-    private String company;
-    private String anotherCompany;
+    public Contract() {
+    }
 
+    public Contract(Company firstCompanyLeg, Company secondCompanyLeg) {
+        this.firstCompanyLeg = firstCompanyLeg;
+        this.secondCompanyLeg = secondCompanyLeg;
+    }
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getCompany() {
-        return company;
+    public Company getFirstCompanyLeg() {
+        return firstCompanyLeg;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setFirstCompanyLeg(Company firstCompanyLeg) {
+        this.firstCompanyLeg = firstCompanyLeg;
     }
 
-    public String getAnotherCompany() {
-        return anotherCompany;
+    public Company getSecondCompanyLeg() {
+        return secondCompanyLeg;
     }
 
-    public void setAnotherCompany(String anotherCompany) {
-        this.anotherCompany = anotherCompany;
+    public void setSecondCompanyLeg(Company secondCompanyLeg) {
+        this.secondCompanyLeg = secondCompanyLeg;
     }
 }
