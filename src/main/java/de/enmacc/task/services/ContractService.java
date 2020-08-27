@@ -62,10 +62,7 @@ public class ContractService implements IContractService {
                 sleeves = searchSleeves(companyName1, companyName2);
                 return sleeves;
             }
-
-
         }
-
     }
 
 
@@ -79,11 +76,10 @@ public class ContractService implements IContractService {
                     temporary.add(c);
                 temporary.add(contract);
                 sleeves.add(temporary);
-            }
-            else if (!sleeve.contains(contract)){
+            } else if (!sleeve.contains(contract)) {
                 sleeve.add(contract);
-                searchSleeves(contract.getSecondCompanyLeg().getCompanyName(),companyName2);
-                sleeve.remove(sleeve.size()-1);
+                searchSleeves(contract.getSecondCompanyLeg().getCompanyName(), companyName2);
+                sleeve.remove(sleeve.size() - 1);
             }
         }
         return sleeves;

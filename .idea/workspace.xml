@@ -4,7 +4,6 @@
     <list default="true" id="12e1b2ac-1f82-48de-bf9b-06a3bdb6074f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/de/enmacc/task/services/ContractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/enmacc/task/services/ContractService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/de/enmacc/task/services/ContractService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/de/enmacc/task/services/ContractService.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -271,7 +270,7 @@
       <workItem from="1551362859089" duration="47000" />
       <workItem from="1551362923916" duration="218000" />
       <workItem from="1598266227219" duration="34124000" />
-      <workItem from="1598429003812" duration="25542000" />
+      <workItem from="1598429003812" duration="25634000" />
     </task>
     <servers />
   </component>
@@ -298,12 +297,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/de/enmacc/task/services/ContractService.java</url>
-          <line>97</line>
+          <line>93</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/de/enmacc/task/services/ContractService.java</url>
-          <line>100</line>
+          <line>96</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
