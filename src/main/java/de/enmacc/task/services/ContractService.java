@@ -22,9 +22,9 @@ public class ContractService implements IContractService {
     ContractRepository contractRepository;
     @Autowired
     CompanyRepository companyRepository;
-    private static String targetCompanyName;
-    Stack connectionPath = new Stack();
-    List<Stack> connectionPaths = new ArrayList<>();
+    List<Contract> sleeve = new ArrayList<>();
+    List<List<Contract>> sleeves = new ArrayList<>();
+
     public List<Contract> getContractByOneCompanyName(String companyName) {
         return contractRepository.findByFirstCompanyLeg_CompanyNameOrSecondCompanyLeg_CompanyName(companyName, companyName);
     }
@@ -43,9 +43,11 @@ public class ContractService implements IContractService {
 
     @Override
     public List<List<Contract>> calculateSleeves(String companyName1, String companyName2) throws ContractException {
-        targetCompanyName = companyName2;
         List<Contract> bestMatchingContract = getContractByTwoCompanyNames(companyName1, companyName2);
+        List<Contract> sleeve = new ArrayList<Contract>();
         List<List<Contract>> sleeves = new ArrayList<List<Contract>>();
+        this.sleeve.clear();
+        this.sleeves.clear();
         if (!bestMatchingContract.isEmpty()) {
             sleeves.add(bestMatchingContract);
             return sleeves;
@@ -57,67 +59,58 @@ public class ContractService implements IContractService {
             if (contractsOfSecondLegCompany.isEmpty())
                 throw new ContractException("No Sleeves found for both companies" + companyName1 + " and " + companyName2);
             else {
-                for (Contract c : contractsOfFirstLegCompany) {
-                    List <Contract> sleeve = new ArrayList<>();
-                    sleeve = searchSleeves(c, companyName2);
-
-                    if (!sleeve.isEmpty() ) {
-                        sleeve.add(c);
-                        Collections.reverse(sleeve);
-                        sleeves.add(sleeve);
-                    }
-                }
-
+                sleeves = searchSleeves(companyName1, companyName2);
+                return sleeves;
             }
 
-            return sleeves;
+
         }
+
     }
 
-    private List<Contract> searchSleeves(Contract c, String companyName2) {
-        List<Contract> secondLegContracts = new ArrayList<>();
-        String secondLegCompanyName = new String(c.getSecondCompanyLeg().getCompanyName());
-        secondLegContracts = getContractByFirstCompanyLeg(secondLegCompanyName);
-        List<Contract> sleeve = new ArrayList<>();
-        if (!secondLegContracts.isEmpty()) {
-            for (Contract contract : secondLegContracts) {
-                if (contract.getSecondCompanyLeg().getCompanyName().equals(targetCompanyName)) {
-                    sleeve.add(contract);
-                    return sleeve;
-                }
-                sleeve.addAll(searchSleeves(contract, contract.getSecondCompanyLeg().getCompanyName()));
-                if (!sleeve.isEmpty()) {
-                    sleeve.add(contract);
-                    return sleeve;
-                }
 
+    private List<List<Contract>> searchSleeves(String companyName1, String companyName2) {
+        List<Contract> contractsOfFirstLegCompany = new ArrayList<Contract>();
+        contractsOfFirstLegCompany = getContractByFirstCompanyLeg(companyName1);
+        for (Contract contract : contractsOfFirstLegCompany) {
+            if (contract.getSecondCompanyLeg().getCompanyName().equals(companyName2)) {
+                List<Contract> temporary = new ArrayList<>();
+                for (Contract c : sleeve)
+                    temporary.add(c);
+                temporary.add(contract);
+                sleeves.add(temporary);
             }
-            return sleeve;
+            else if (!sleeve.contains(contract)){
+                sleeve.add(contract);
+                searchSleeves(contract.getSecondCompanyLeg().getCompanyName(),companyName2);
+                sleeve.remove(sleeve.size()-1);
+            }
         }
-        return sleeve;
+        return sleeves;
     }
+
     @Override
     public List<Stack> calculateSleeves2(String node, String targetNode) throws ContractException {
-        List<Contract> contractsOfFirstLegCompany = new ArrayList<Contract>();
+      /*  List<Contract> contractsOfFirstLegCompany = new ArrayList<Contract>();
         List<Contract> contractsOfSecondLegCompany = new ArrayList<Contract>();
 // Push to connectionsPath the object that would be passed as the parameter 'node' into the method below
         contractsOfFirstLegCompany = getContractByFirstCompanyLeg(node);
         contractsOfSecondLegCompany = getContractBySecondCompanyLeg(targetNode);
-            for (Contract nextNode : contractsOfFirstLegCompany) {
-                if (nextNode.getSecondCompanyLeg().getCompanyName().equals(targetNode)) {
-                    Stack temp = new Stack();
-                    for (Object node1 : connectionPath)
-                        temp.add(node1);
-                    temp.add(nextNode);
-                    connectionPaths.add(temp);
-                } else if (!connectionPath.contains(nextNode)) {
-                    connectionPath.push(nextNode);
-                    calculateSleeves2(nextNode.getSecondCompanyLeg().getCompanyName(), targetNode);
-                    connectionPath.pop();
-                }
+        for (Contract nextNode : contractsOfFirstLegCompany) {
+            if (nextNode.getSecondCompanyLeg().getCompanyName().equals(targetNode)) {
+                Stack temp = new Stack();
+                for (Object node1 : connectionPath)
+                    temp.add(node1);
+                temp.add(nextNode);
+                connectionPaths.add(temp);
+            } else if (!connectionPath.contains(nextNode)) {
+                connectionPath.push(nextNode);
+                calculateSleeves2(nextNode.getSecondCompanyLeg().getCompanyName(), targetNode);
+                connectionPath.pop();
             }
-
-            return  connectionPaths;
         }
+*/
+        return null;
+    }
 
 }
