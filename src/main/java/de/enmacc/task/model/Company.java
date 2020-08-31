@@ -3,13 +3,27 @@ package de.enmacc.task.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
+/**
+ * This entity is a POJO for persisting the Company object
+ * in a relational Database
+ * @author binebli
+ * @version 1.0
+ */
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Company {
+    /**
+     * The companyName is a field describing the name of the company
+     */
     @Id
     private String companyName;
+    /**
+     * The companyDescription is a field for a short description of the company
+     */
+    @NotBlank(message = "The company description is mandatory")
     private String companyDescription;
 
     public Company() {
@@ -46,5 +60,12 @@ public class Company {
     @Override
     public int hashCode() {
         return Objects.hash(companyName);
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "companyName='" + companyName + '\'' +
+                '}';
     }
 }

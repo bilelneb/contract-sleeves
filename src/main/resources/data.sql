@@ -12,6 +12,7 @@ INSERT INTO Contract (id,COMPANY_NAME1 ,COMPANY_NAME2 ) VALUES
 (3,'Engie','OMV'),
 (4,'OMV','Vattenfall');
 */
+
 INSERT INTO Company (company_name,Company_Description) VALUES
 ( 'A','A'),
 ('B','B'),
