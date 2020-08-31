@@ -25,14 +25,14 @@ public class Contract {
     @NotNull(message = "The first Company Leg is Mandatory")
     @ManyToOne
     @JoinColumn(name = "company_name1",referencedColumnName = "companyName")
-    private @Valid Company firstCompanyLeg;
+    private  Company firstCompanyLeg;
     /**
      * The secondCompanyLeg defines the relation between a contract and a company
      */
     @NotNull(message = "The second Company Leg is Mandatory")
     @ManyToOne
     @JoinColumn(name = "company_name2",referencedColumnName = "companyName")
-    private @Valid Company secondCompanyLeg;
+    private  Company secondCompanyLeg;
 
     public Contract() {
     }

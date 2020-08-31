@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -23,7 +24,7 @@ public class Company {
     /**
      * The companyDescription is a field for a short description of the company
      */
-    @NotBlank(message = "The company description is mandatory")
+    @NotNull(message = "The company description is mandatory")
     private String companyDescription;
 
     public Company() {
